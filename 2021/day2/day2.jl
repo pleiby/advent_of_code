@@ -51,11 +51,13 @@ function navigate_df(df)
     hpos, depth
 end
 
+# Alternate approach, 
+# using [Fast iteration over rows of a DataFrame](https://discourse.julialang.org/t/fast-iteration-over-rows-of-a-dataframe/24612/8)
 function navigate_df2(df)
     
     hpos, depth = 0, 0
 
-    tbl = Tables.rowtable(df) # creates vector of NamedTuple(s)
+    tbl = Tables.rowtable(df) # creates vector of NamedTuple(s) (type-stable iterator)
     for row in Tables.rows(tbl)
         if row.direction == "forward" 
             hpos += row.distance
