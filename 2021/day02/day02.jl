@@ -14,7 +14,7 @@ Calculate the horizontal position and depth you would have after following the p
 What do you get if you multiply your final horizontal position by your final depth?
 =#
 
-using DataFrame
+using DataFrames
 using CSV
 
 # read space-delimited data into a DataFrame
