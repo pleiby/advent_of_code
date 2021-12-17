@@ -18,7 +18,7 @@ using DataFrames
 using CSV
 
 # read space-delimited data into a DataFrame
-course_df = CSV.read("2021/day2/input.txt", DataFrame, header=false, delim=' ')
+course_df = CSV.read("2021/day02/input.txt", DataFrame, header=false, delim=' ')
 
 combine(course_df, # rename columns (combine usuall applies to grouped df)
     :Column1 => :direction,
@@ -79,8 +79,8 @@ end
 ho, dp = navigate_df(course_df)
 ho, dp = navigate_df2(course_df)
 
-ho * dp # product is result sought.
-
+println("Part 1: ", ho * dp) # product is Part 1 result sought.
+## Part 1: 1882980
 
 #= Part 2
 --- Part Two ---
@@ -152,9 +152,11 @@ function navigate_aim_df(df)
 end
 
 ho, dp, am = navigate_aim_df(course_df)
-ho * dp # product is result sought.
+println("Part 2: ", ho * dp) # product is Part 2 result sought.
+## Part 2: 1971232560
 
 # ====================
+# Misc experiments
 course_df.hmove = [x == "forward" ? true : false for x in course_df.direction]
 first(course_df, 5)
 
@@ -162,4 +164,12 @@ first(course_df, 5)
 DataFrame(x = [1,2,3], y = 4:6, z = 9)
 DataFrame("x" => [1,2], "y" => [3,4])
 DataFrame(rand(5, 3), [:x, :y, :z])
+
+ptable = DataFrame( Number = [1, 2, 6, 8, 26 ])
+# conditionally replace values in a column that are under 10 by 7 and create new column
+ptable.New_number = [x < 10 ? 7 : missing for x in ptable.Number]
+
+using DataFramesMeta
+@transform(ptable, New_number = [x < 10 ? 7 : missing for x in :Number])
+
 
