@@ -6,18 +6,18 @@
 
 using DataFrames
 
-soundings = readlines("2021/day1/input.txt")
+soundings = readlines("2021/day01/input.txt")
 
 parse1Int(x) = parse(Int64, x)
 ispos(x) = (x>0)
 
-# convert to integers
-soundings = map(parse1Int, soundings)
+soundings = map(parse1Int, soundings) # convert to integers
 
-# differences
-Dsoundings = soundings[2:end] - soundings[1:(end-1)]
+Dsoundings = soundings[2:end] - soundings[1:(end-1)] # differences
 
-sum(map(ispos, Dsoundings)) # count positive changes
+p1 = sum(map(ispos, Dsoundings)) # count positive changes
+
+println("Day01 pt1: $p1")
 
 #= Part 2
 Start by comparing the first and second three-measurement windows.
@@ -37,8 +37,6 @@ three-measurement sum.
 # Consider sums of a three-measurement sliding window.
 # How many sums are larger than the previous sum?
 
-
-
 function slidingsum(xvec, sumlength)
     xs = []
     for i in 1:(length(xvec) - sumlength + 1) # watch end condition
@@ -55,4 +53,6 @@ soundings_ss = slidingsum(soundings, 3) # 3-wide sliding sum
 
 Dsoundings_ss = soundings_ss[2:end] - soundings_ss[1:(end-1)]
 
-sum(map(ispos, Dsoundings_ss)) # count positive changes in sliding sum
+p2 = sum(map(ispos, Dsoundings_ss)) # count positive changes in sliding sum
+
+println("Day01 pt2: $p2")
