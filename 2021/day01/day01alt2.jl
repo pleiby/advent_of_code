@@ -23,7 +23,8 @@ function part2(inputvector)
         parse.(Int32, _)  # convert strings to integers
         _ .- ShiftedArrays.lag(_) # compute difference with previous value
         _[2:end] # remove first element, which will be missing
-        RollingFunctions.rollmean(_, 3)# need to rolling sum or mean of 3 values
+        # RollingFunctions.rollmean(_, 3)# need to rolling sum or mean of 3 values
+        RollingFunctions.rolling(sum, _, 3) # alternative for rolling 3-value sum
         filter(x -> x > 0, _) # filter to the increases in value
         length # now count
     end
