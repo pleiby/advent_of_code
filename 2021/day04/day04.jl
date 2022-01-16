@@ -91,19 +91,60 @@ using CSV
 #  Score winning board (if one found)
 #    sum all non-called elements (non-called, since called are zero)
 
+# read the first line, which is the sequence of drawn_numbers
 lines = readlines("./2021/day04/test.txt")
 test_drawn_numbers = split(lines[1], ",")
+
+# define utility functions
 parse1Int(x) = parse(Int64, x)
-test_drawn_numbers = map(parse1Int, test_drawn_numbers)
+
+parseIntVec(x) = map(parse1Int, x)
+parseIntVec2(x) = parse.(Int, x)
+
+# test parsing of vector of integer-strings
+["23" "15"] |> parseIntVec
+["23" "15"] |> parseIntVec2
+
+test_drawn_numbers = parseIntVec(test_drawn_numbers)
+
+# how to create array of arrays
+a = fill(Int[],10) # intialize array of empty arrays
+
+mutable struct Board # define Board type as a 2-D array (5 x 5)
+    x::Array{Int64, 2}
+    # Array{Int64}(undef, 5, 5)
+end
+
+Board() = Board(zeros(5,5)) # exterior constructor for empty construction
+
+x1 = Board()
+x1.x
+
+x = Array{Board, 1}() # empty 1-D array of boards
+x = Vector{Board}() # empty vector of boards
+y = Board[] # empty vector of boards
+
+push!(x, Board())
+
+
+nboards = 10
+boards = Array{Board}(undef, nboards) # array of nboards Board
+boards[3] = Board()
+
+# or we can define boards as a multi-dimensional array
+boards = Array{Int64}(undef, 10, 5, 5) # Array{T}(undef, dims...)
+boards = fill(Int64(0), 10, 5, 5)
+
+n = 2
+boards[n, :, :] # this gives the nth matrix
 
 k = 1
+append!
+tempBoard = 
+for r in 1:5
+    boards[k, r, :] = parse.(Int, split(lines[(k-1)*6 + r + 2]) )
+end
 
-for _ in 1:5
-    board[k, parse.(Int, split(lines[3]) )
-
-XXX
-
-["23" "15"] |> parse1Int
 # result for Part 1:
 println("Part 1: ", 0) # product is Part 1 result sought.
 ## Part 1: 0 # Checked, correct
